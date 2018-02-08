@@ -13,3 +13,4 @@ render(input="README.Rmd")
 
 # 2: Building vignettes
 ## build_vignettes()
+unlink("inst/doc")

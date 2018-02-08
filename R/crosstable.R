@@ -9,12 +9,22 @@ setGeneric("crosstable", function(formula, data, ...)
 
 # Method for data frames
 setMethod("crosstable", signature(formula="formula", data="data.frame"),
-        function(formula, data, FUN, na_to_zero=FALSE, ...) {
+        function(formula, data, FUN, na_to_zero=FALSE, use_nas=TRUE, ...) {
             if(!all(c(as.character(formula)[2], attr(terms(formula),
                                             "term.labels")) %in%
                             colnames(data)))
                 stop("all terms in 'formula' must be a column in 'data'")
-            data <- aggregate(formula, data, FUN, ...)
+			if(use_nas) {
+				Terms <- c(as.character(formula)[2], attr(terms(formula),
+								"term.labels"))
+				for(i in Terms[-1]) {
+					if(is.factor(data[,i]))
+						data[,i] <- paste(data[,i])
+					if(is.character(data[,i]))
+						data[is.na(data[,i]),i] <- ""
+				}
+			}
+			data <- aggregate(formula, data, FUN, ...)
             coverage <- as.character(formula)[2]
             plots <- attr(terms(formula), "term.labels")[1]
             # for multiple plot entries
@@ -52,7 +62,7 @@ setMethod("crosstable", signature(formula="formula", data="data.frame"),
 
 # Method for vegtable objects
 setMethod("crosstable", signature(formula="formula", data="vegtable"),
-        function(formula, data, FUN, na_to_zero=FALSE, ...) {
+        function(formula, data, FUN, na_to_zero=FALSE, use_nas=TRUE, ...) {
             Terms <- c(as.character(formula)[2], attr(terms(formula),
                             "term.labels"))
             data@samples <- data@samples[,colnames(data@samples) %in%
@@ -90,6 +100,16 @@ setMethod("crosstable", signature(formula="formula", data="vegtable"),
                                 data@species@taxonNames$TaxonUsageID),
                         "TaxonName"]
             }
+			# Data from traits (only for Accepted Name or TaxonConceptID)
+			traits_names <- colnames(data@species@taxonTraits)[
+					colnames(data@species@taxonTraits) != "TaxonConceptID"]
+			if(any(Terms %in% traits_names)) {
+				traits_names <- traits_names[traits_names %in% Terms]
+				for(i in traits_names)
+					data@samples[,i] <- data@species@taxonTraits[
+							match(data@samples$TaxonConceptID,
+									data@species@taxonTraits$TaxonConceptID),i]
+			}
             # Data from header
             header_names <- colnames(data@header)[colnames(data@header) !=
                             "ReleveID"]
@@ -99,9 +119,8 @@ setMethod("crosstable", signature(formula="formula", data="vegtable"),
                     data@samples[,i] <- data@header[match(data@samples$ReleveID,
                                     data@header$ReleveID), i]
             }
-            # Either aggregate or continue in method data.frame
-            if(length(Terms) == 2)
-                return(aggregate(formula, data@samples, FUN, ...)) else
-                return(crosstable(formula, data@samples, FUN, na_to_zero, ...))
+            # Continue with method data.frame
+			return(crosstable(formula, data@samples, FUN, na_to_zero, use_nas,
+							...))
         }
 )
