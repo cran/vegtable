@@ -1,7 +1,7 @@
 Package: vegtable
-Version: 0.1.1
+Version: 0.1.2
 Encoding: UTF-8
-Date: 2018-01-01
+Date: 2018-05-02
 Title: Handling Vegetation Data Sets
 Author: Miguel Alvarez <kamapu78@gmail.com>
 Maintainer: Miguel Alvarez <kamapu78@gmail.com>
@@ -24,9 +24,9 @@ Collate: 'NULLing.R''supporting_functions.R'
         'coverconvert-methods.R''names.R'
         'tv2coverconvert.R''tv2vegtable.R'
         'crosstable.R''aggregate.R''write_juice.R''read_juice.R''vegtable2kml.R'
-        'shaker-methods.R''make_cocktail.R' 'summary.R'
-        'StartMessage.R'
+        'layers2samples.R' 'shaker-methods.R''make_cocktail.R'
+        'summary.R''match_names.R' 'StartMessage.R'
 NeedsCompilation: no
-Packaged: 2018-02-08 18:42:36 UTC; m_alvarez
+Packaged: 2018-05-10 15:56:15 UTC; m_alvarez
 Repository: CRAN
-Date/Publication: 2018-02-08 22:55:11 UTC
+Date/Publication: 2018-05-10 17:18:23 UTC
