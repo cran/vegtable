@@ -42,15 +42,19 @@ setClass("vegtable",
                     return(paste0("Relation '", i, "' not included in slot 'header'"))
                 if(!i %in% colnames(object@relations[[i]]))
                     return(paste0("Column '", i, "' is mandatory in relation '", i, "'"))
+				if(any(!object@header[,i] %in% object@relations[[i]][,i] & !is.na(object@header[,i])))
+					return(paste0("Some values of '", i,
+									"' in header do not macht the values in slot relations."))
             }
             # Mandatory links
             if(!all(object@samples$ReleveID %in% object@header$ReleveID))
                 return("Some releve IDs from slot 'samples' are missing in slot 'header'")
             if(!all(object@header$ReleveID %in% object@samples$ReleveID))
                 return("Some releve IDs from slot 'header' are missing in slot 'samples'")
-            if(any(!object@samples[!is.na(!object@samples$TaxonUsageID),
-									"TaxonUsageID"] %in%
-					object@species@taxonNames$TaxonUsageID))
+            if(any(is.na(object@samples$TaxonUsageID)))
+				return("NAs are not allowed in 'TaxonUsageID' at slot 'samples'.")
+			if(any(!object@samples$TaxonUsageID %in%
+							object@species@taxonNames$TaxonUsageID))
                 return("Some taxon names are missing in slot 'species'")
             # Other consistency tests
             if(any(duplicated(object@header$ReleveID)))
