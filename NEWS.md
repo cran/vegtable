@@ -1,3 +1,23 @@
+vegtable 0.1.5
+==============
+
+### New Features
+
+* New function `relation2header()`.
+* New functions `trait_stats()` and `trait_proportion()`.
+
+### Improvements
+
+* New argument `add_traits` in function `taxa2samples()`.
+* Output of `count_taxa()`, formula-method, indicates the counted rank in the output.
+* Adjusted settings in function `write_juice()` for general cases.
+* Argument `as_matrix` in function `crosstable()` alternating `matrix` or `data.frame` as output.
+* New arguments `suffix` and `in_header` for the function `count_taxa()`.
+
+### Bug Fixes
+
+* Function `taxa2samples()` was not properly working when `taxlist` had taxon concepts without level information.
+
 vegtable 0.1.4
 ==============
 
