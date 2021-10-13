@@ -16,6 +16,7 @@ write_juice(data, file, formula, ...)
   db_name = "Plot Observations",
   header,
   coords,
+  sep = ",",
   ...
 )
 
@@ -41,9 +42,9 @@ function \code{\link[=crosstable]{crosstable()}}, \code{read_juice()} passes tho
 
 \item{coords}{Names of coordinate variables in header of \code{data}.}
 
-\item{encoding}{Argument passed to \code{\link{readLines}}.}
-
 \item{sep}{Separator used to split rows into columns.}
+
+\item{encoding}{Argument passed to \code{\link{readLines}}.}
 
 \item{na}{Character used as not available values.}
 }
@@ -53,29 +54,28 @@ plot (\code{cross_table}), and a data frame with header data (\code{header}).
 }
 \description{
 This function produce txt files as inport formats for \strong{Juice}
-(\url{http://www.sci.muni.cz/botany/juice/}).
+(\url{https://www.sci.muni.cz/botany/juice/}).
 
 This function produces two output files to be imported into a \strong{Juice}
 file: A vegetation table produced by \code{\link[=crosstable]{crosstable()}} and a header table.
 Both tables share the file name plus a suffix (\code{table} for the
 vegetation table and \code{header} for the header).
 
-For the import in \strong{Juice}, you may start with the table following in
-the menu \verb{File -> Import -> Table -> from Spreadsheet File (e.g. EXCEL Table)} and then follow the wizard. You further import the header table
-following in the menu \verb{File -> Import -> Header Data -> From Comma Delimited File}.
-Notice that the vegetation is a semi-colon delimited file, while the header
-is a comma delimited file.
+For the import in \strong{Juice}, you go to the menu
+\verb{File -> Import -> Table -> from Spreadsheet File (e.g. EXCEL Table)} and
+then follow the wizard.
+Do not forget to select the proper settings in the wizard: 1) 'Character
+delimiting columns: Comma' (for default argument values). 2) 'Use the second
+column as layer information: Unchecked'. 3) 'Cover values: Percentage
+Values'.
 
-For a properly import, you may strictly follow the export steps in \strong{Juice}:
-\enumerate{
-\item In menu \verb{File -> Export -> Table -> to Spreadsheet Format File} and
-\item check the option \verb{Export covers in \%}.
-}
+To further import the header table you need to go to the menu
+\verb{File -> Import -> Header Data -> From Comma Delimited File}.
 
-In the \code{header} (see \strong{Value}), the first column (\code{juice_nr})
+In the \code{header} (see \strong{Value}), the first column (\verb{Table number})
 corresponds to the plot number assigned by \strong{Juice} at import, while
-the column \code{db_nr} is the number originally assigned to the plot (e.g.
-\strong{Turboveg} ID).
+the column (\verb{Releve number}) is the number originally assigned to the plot
+(e.g. \strong{Turboveg} ID).
 }
 \examples{
 ## Only first 20 observations

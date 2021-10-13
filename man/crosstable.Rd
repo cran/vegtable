@@ -53,7 +53,7 @@ An object of class \link{data.frame}.
 }
 \description{
 This function is generating cross tables, which are the most common format
-used by statistical packages analysing vegetation data (e.g. \link[vegan:vegan]{vegan::vegan}).
+used by statistical packages analysing vegetation data (e.g. \link[vegan:vegan-package]{vegan::vegan}).
 
 Most applications and displays of vegetation data use preferentially the
 cross table format. For convenience, the formula has the form
@@ -69,7 +69,7 @@ or even taxon traits.
 Kenya_veg <- subset(Kenya_veg, REFERENCE == 2331, slot="header")
 
 ## transform cover to percentage
-Kenya_veg <- transform(Kenya_veg, to="cover_perc", rule="middle")
+Kenya_veg <- cover_trans(Kenya_veg, to="cover_perc", rule="middle")
 
 ## cross table of the first 5 plots
 Cross <- crosstable(cover_perc ~ ReleveID + AcceptedName + AuthorName,

@@ -1,3 +1,37 @@
+vegtable 0.1.7
+==============
+
+## New Features
+
+* New function `used_concepts()` to extract taxon concepts that are occurring
+in the plot observations.
+* New function `cover_trans()` in replacement of `transform()`
+* New slot `syntax` in `vegtable` objects.
+* `show()` and `print()` methods for objects `vegtable`, `coverconvert`,
+  and `shaker`.
+
+## Improvements
+
+* In function `make_cocktail()`, names of syntaxa are allowed to start with numerical values.
+* Function `write_juice()` includes a messages when working and with some
+metadata for cross-check when importing in Juice.
+* New arguments in function `taxa2samples()` setting the levels to be included
+in output object (`include_levels`) and to remove taxa without levels
+(`na.rm`).
+* Application of `subset()` extended to content in slot **relations**.
+* Function `vegtable2kml()` was deprecated to resolve dependencies on GIS
+  packages associated to package `plotKML`.
+* Validity checks allow plots in slot **header** without records in **samples**.
+* Function `summary()` also providing number of plots with records.
+* Function `transform()` deprecated and replaced by `cover_trans()`.
+
+## Bug Fixes
+
+* Files written by `write_juice()` in Linux are now readable in Windows.
+* In `clean()` objects with no entries resulted in invalid objects.
+* Bug in `count_taxa()` for aggregating ranks with missing records for lower
+  taxa.
+
 vegtable 0.1.6
 ==============
 

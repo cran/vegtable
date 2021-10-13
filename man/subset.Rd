@@ -11,19 +11,27 @@
   slot = "header",
   keep_children = FALSE,
   keep_parents = FALSE,
+  relation,
   ...
 )
 }
 \arguments{
 \item{x}{A \linkS4class{vegtable} object for subset.}
 
-\item{subset}{Logical vector or operation for subset.}
+\item{subset}{Logical expression for subset.}
 
-\item{slot}{Slot to be applied for subset.}
+\item{slot}{Character value indicating the slot used as reference for subset.
+At the moment only the values "taxonNames", "taxonRelations",
+"taxonTraits", "header", "samples", and "relations" are accepted.
+The three first values will be applied to the respective slots in the
+contained \linkS4class{taxlist} object (slot \strong{species}).}
 
-\item{keep_children}{Argument passed to \code{\link[taxlist:subset]{taxlist::subset()}}.}
+\item{keep_children}{Argument passed to \code{\link[taxlist:get_children]{taxlist::get_children()}}.}
 
-\item{keep_parents}{Argument passed to \code{\link[taxlist:subset]{taxlist::subset()}}.}
+\item{keep_parents}{Argument passed to \code{\link[taxlist:get_children]{taxlist::get_parents()}}.}
+
+\item{relation}{Character value indicating the relation (slot \strong{relations})
+to be used as reference for subset.}
 
 \item{...}{Further arguments passed from or to other methods.}
 }
@@ -42,11 +50,37 @@ This method can be referred to the slot \code{species} the same way as
 references to the subset of species list.
 }
 \examples{
-summary(dune_veg)
+## Subset by taxon name
+Kenya_sub <- subset(x=Kenya_veg, subset=TaxonName == "Tagetes",
+		slot="taxonNames", keep_children=TRUE, keep_parents=TRUE)
+summary(Kenya_sub)
+summary(Kenya_sub@species)
 
-## Select plots used as pastures
-Pastures <- subset(dune_veg, Use == "Pasture", slot="header")
-summary(Pastures)
+## Subset by taxon relations
+Kenya_sub <- subset(x=Kenya_veg, subset=Level == "species",
+slot="taxonRelations")
+summary(Kenya_sub)
+summary(Kenya_sub@species)
+
+## Subset by taxon traits
+Kenya_sub <- subset(x=Kenya_veg, subset=lf_behn_2018 == "obligate_annual",
+slot="taxonTraits")
+summary(Kenya_sub)
+summary(Kenya_sub@species)
+
+## Subset by header
+Kenya_sub <- subset(x=Kenya_veg, subset=ALTITUDE <= 1000, slot="header")
+summary(Kenya_sub)
+
+## Subset by samples (after converting coverage)
+Kenya_veg <- cover_trans(x=Kenya_veg, to="cover_percentage", rule="middle")
+Kenya_sub <- subset(x=Kenya_veg, subset=cover_percentage >= 50, slot="samples")
+summary(Kenya_sub)
+
+## Subset by relations
+Kenya_sub <- subset(x=Kenya_veg, subset=as.integer(YEAR) >= 2000,
+slot="relations", relation="REFERENCE")
+summary(Kenya_sub)
 
 }
 \author{

@@ -2,39 +2,27 @@
 % Please edit documentation in R/transform.R
 \name{transform}
 \alias{transform}
-\alias{transform,character,coverconvert-method}
-\alias{transform,factor,coverconvert-method}
-\alias{transform,numeric,coverconvert-method}
-\alias{transform,vegtable,missing-method}
 \title{Convert cover scales to percent cover}
 \usage{
-transform(x, conversion, ...)
-
-\S4method{transform}{character,coverconvert}(x, conversion, from = NULL, rule = "top", zeroto = 0.1, ...)
-
-\S4method{transform}{factor,coverconvert}(x, conversion, ...)
-
-\S4method{transform}{numeric,coverconvert}(x, conversion, ...)
-
-\S4method{transform}{vegtable,missing}(x, to, replace = FALSE, rule = "top", zeroto = 0.1, ...)
+transform(x, ...)
 }
 \arguments{
-\item{x}{Either a factor or character vector, or a \linkS4class{vegtable} object.}
+\item{...}{Further arguments passed from or to other methods.}
+
+\item{_data, x}{Either a factor or character vector, or a \linkS4class{vegtable} object.}
 
 \item{conversion}{An object of class \linkS4class{vegtable}.}
 
-\item{...}{Further arguments passed from or to other methods.}
-
 \item{from}{Scale name of values in \code{x} as character value.}
-
-\item{rule}{Rule applied for the conversion (see details).}
-
-\item{zeroto}{Value used to replace levels with bottom at 0\% cover.}
 
 \item{to}{Name of the column in slot \code{samples} for writing converted values.}
 
 \item{replace}{Logical value indicating whether existing cover values should
 be replaced or not.}
+
+\item{rule}{Rule applied for the conversion (see details).}
+
+\item{zeroto}{Value used to replace levels with bottom at 0\% cover.}
 }
 \value{
 Either a vector or a \linkS4class{vegtable} object.
@@ -59,23 +47,10 @@ object will be maintained. Since there is not a standard naming of cover
 values, in the transformation the name of cover variable should be
 indicated in the argument \code{to}.
 }
-\examples{
-## Check the available scales
-summary(Kenya_veg@coverconvert)
-
-## Conversion by default 'top' rule
-Kenya_veg <- transform(Kenya_veg, to="percent")
-summary(as.factor(Kenya_veg@samples$percent))
-
-## Conversion by 'middle' rule
-Kenya_veg <- transform(Kenya_veg, to="percent", rule="middle", replace=TRUE)
-summary(as.factor(Kenya_veg@samples$percent))
-
-## Conversion by 'bottom' rule
-Kenya_veg <- transform(Kenya_veg, to="percent", rule="bottom", replace=TRUE)
-summary(as.factor(Kenya_veg@samples$percent))
-
+\seealso{
+\link{vegtable-deprecated}
 }
 \author{
 Miguel Alvarez \email{kamapu78@gmail.com}
 }
+\keyword{internal}
