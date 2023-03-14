@@ -68,6 +68,7 @@ make_cocktail(shaker, vegtable, ...)
   cover,
   syntax = "Syntax",
   FUN = sum,
+  in_header = TRUE,
   ...
 )
 }
@@ -106,6 +107,10 @@ including the final classification of plots.}
 
 \item{FUN}{Function used for merging multiple occurrence of species in a
 single plot.}
+
+\item{in_header}{Logical value indicating whether results of Cocktail
+classification should be inserted to the header of the input vegtable or
+not. In the second case, a data frame is provided as output.}
 }
 \value{
 A data frame corresponding to the slot \code{header} of input object \code{vegtable},
@@ -138,36 +143,43 @@ object, which is either an object of class \linkS4class{taxlist} or
 }
 \examples{
 ## Example from Alvarez (2017)
-Wetlands_veg@header <- make_cocktail(Wetlands, Wetlands_veg, cover="percen")
+Wetlands_veg <- make_cocktail(Wetlands, Wetlands_veg, cover = "percen")
 summary(as.factor(Wetlands_veg@header$Syntax))
 
 ## Same but only for two vegetation units
-Wetlands_veg@header <- make_cocktail(Wetlands, Wetlands_veg,
-    which=c("HY1","HY2"), cover="percen")
+Wetlands_veg <- make_cocktail(Wetlands, Wetlands_veg,
+  which = c("HY1", "HY2"), cover = "percen"
+)
 summary(as.factor(Wetlands_veg$Syntax))
 
 ## Construct the 'shaker' object anew
 Wetlands <- new("shaker")
 
 ## Set a pseudo-species
-Wetlands <- set_pseudo(Wetlands, Wetlands_veg, c("Cyperus latifolius",
-				"Cyperus exaltatus"))
+Wetlands <- set_pseudo(Wetlands, Wetlands_veg, c(
+  "Cyperus latifolius",
+  "Cyperus exaltatus"
+))
 
 ## Set a species group
-Wetlands <- set_group(Wetlands, Wetlands_veg, group_id="Cyperus papyrus",
-		group=c(
-                "Cyperus papyrus",
-                "Cyclosorus interruptus",
-                "Lepistemon owariense"))
+Wetlands <- set_group(Wetlands, Wetlands_veg,
+  group_id = "Cyperus papyrus",
+  group = c(
+    "Cyperus papyrus",
+    "Cyclosorus interruptus",
+    "Lepistemon owariense"
+  )
+)
 
 ## Set a fromula
-Wetlands <- set_formula(Wetlands, Wetlands_veg, formula_id="HE1",
-		formula="groups:'Cyperus papyrus' | species:'Cyperus papyrus > 50'")
+Wetlands <- set_formula(Wetlands, Wetlands_veg,
+  formula_id = "HE1",
+  formula = "groups:'Cyperus papyrus' | species:'Cyperus papyrus > 50'"
+)
 
 ## Summaries
 summary(Wetlands)
 summary(Wetlands, Wetlands_veg)
-
 }
 \references{
 \bold{Alvarez M (2017).} Classification of aquatic and

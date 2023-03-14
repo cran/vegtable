@@ -1,3 +1,36 @@
+vegtable 0.1.8
+==============
+
+## New Features
+
+* New function `veg_diversity()` and functions calculating diversity indices:
+  `shannon()`, `evenness()`, `dominance()`, `simpson()`, and `richness()`.
+* New function `new_relation()` inserting new relations into `vegtable` objects.
+  This function is internally called by `veg_relation()`.
+* New function `df2coverconvert()` coercing data frames and lists into
+  `coverconvert` objects.
+
+## Improvements
+
+* Slot **relations** may deal with any element that can be coerced to
+  `data.frame`.
+* All elements in slot **syntax** have to be of class `taxlist`
+* Parameter `in_header` defined in several functions is set as
+  `in_header = TRUE`.
+* Former method for 'aggregate()' is now defined in function 'veg_aggregate()'.
+* Deprecated functions: `match_names()`, `merge_taxa()`. These functions are now
+  exclusive for objects of class `taxlist`.
+* Method `names()` for `vegtable` objects will retrieve a list with all names
+  from the respective slots.
+* New coercion methods including functions `as()` and `as<-`.
+* Functions `trait_proportion()` and `trait_stats()` are also adding results to
+  the slot **relations**.
+  
+## Bug Fixes
+
+* An issue was solved for function `taxa2samples()` when setting an argument in
+  the parameter `'merge_to'`, which was not properly working in all cases.
+
 vegtable 0.1.7
 ==============
 

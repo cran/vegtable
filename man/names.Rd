@@ -3,8 +3,6 @@
 \name{names}
 \alias{names}
 \alias{names,vegtable-method}
-\alias{names<-,vegtable-method}
-\alias{names<-}
 \alias{dimnames,vegtable-method}
 \alias{dimnames}
 \alias{names,coverconvert-method}
@@ -12,8 +10,6 @@
 \title{Retrieve names of vegtable and coverconvert objects}
 \usage{
 \S4method{names}{vegtable}(x)
-
-\S4method{names}{vegtable}(x) <- value
 
 \S4method{dimnames}{vegtable}(x)
 
@@ -27,6 +23,8 @@
 \item{value}{A character vector used for replacement methods.}
 }
 \value{
+A list containing the names from each slot.
+
 Either a vector or a list (in the case of \code{dimnames()}) with
 the names of variables.
 }
@@ -40,7 +38,6 @@ These methods provide a quick display of the contents in
 names(Kenya_veg@coverconvert)
 names(Kenya_veg)
 dimnames(Kenya_veg)
-
 }
 \author{
 Miguel Alvarez \email{kamapu78@gmail.com}.

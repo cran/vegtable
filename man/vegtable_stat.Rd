@@ -2,12 +2,18 @@
 % Please edit documentation in R/vegtable_stat.R
 \name{vegtable_stat}
 \alias{vegtable_stat}
+\alias{vegtable_stat.vegtable}
+\alias{vegtable_stat,vegtable-method}
 \title{General statistics from vegtable objects}
 \usage{
-vegtable_stat(vegtable)
+vegtable_stat(vegtable, ...)
+
+\method{vegtable_stat}{vegtable}(vegtable, ...)
 }
 \arguments{
 \item{vegtable}{An object of class \linkS4class{vegtable}.}
+
+\item{...}{Further arguments passed among methods.}
 }
 \description{
 This function calculates general statistics of local \strong{Turboveg}
